@@ -2,16 +2,7 @@ import { useState, useEffect } from 'react'
 
 function GreetingForm() {
   const [name, setName] = useState('')
-  const [greeting, setGreeting] = useState('')
-
-  // useEffect to update greeting when name changes
-  useEffect(() => {
-    if (name.trim()) {
-      setGreeting(`Hello, ${name}! 👋`)
-    } else {
-      setGreeting('')
-    }
-  }, [name])
+  const greeting = name.trim() ? `Hello, ${name}! 👋` : ''
 
   // useEffect to log when component mounts
   useEffect(() => {
