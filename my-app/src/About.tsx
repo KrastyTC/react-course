@@ -1,25 +1,31 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
+
+// Module-level flag to prevent double counting in StrictMode
+// This persists across component remounts in development
+let hasIncremented = false
 
 function About() {
-  const hasIncrementedRef = useRef(false)
-  const [visitCount, setVisitCount] = useState(() => {
-    // Initialize from localStorage
-    const saved = localStorage.getItem('aboutVisitCount')
-    return saved ? parseInt(saved, 10) : 0
-  })
-
-  useEffect(() => {
-    // Only increment once per actual mount (prevents double counting in StrictMode)
-    if (!hasIncrementedRef.current) {
-      hasIncrementedRef.current = true
-      // Read directly from localStorage to avoid dependency on visitCount state
+  const [visitCount] = useState(() => {
+    // Only increment on the first initialization (prevents double counting in StrictMode)
+    if (!hasIncremented) {
+      hasIncremented = true
       const saved = localStorage.getItem('aboutVisitCount')
       const currentCount = saved ? parseInt(saved, 10) : 0
       const newCount = currentCount + 1
       localStorage.setItem('aboutVisitCount', newCount.toString())
-      setVisitCount(newCount)
+      return newCount
     }
-  }, []) // Empty deps - only run on mount
+    // On second initialization (StrictMode), just read the value we just saved
+    const saved = localStorage.getItem('aboutVisitCount')
+    return saved ? parseInt(saved, 10) : 0
+  })
+
+  // Reset flag when component unmounts (allows proper counting on remount)
+  useEffect(() => {
+    return () => {
+      hasIncremented = false
+    }
+  }, [])
 
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
