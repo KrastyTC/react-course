@@ -1,0 +1,14 @@
+.about-page {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-content {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #242424;
+  border-radius: 8px;
+}
+

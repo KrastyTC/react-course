@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import './About.css'
 
 // Module-level flag to prevent double counting in StrictMode
 // This persists across component remounts in development
@@ -28,11 +29,11 @@ function About() {
   }, [])
 
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+    <div className="about-page">
       <h1>About Page</h1>
       <p>This is the About page of the application.</p>
       <p>You've visited this page {visitCount} time{visitCount !== 1 ? 's' : ''}.</p>
-      <div style={{ marginTop: '20px', padding: '15px', backgroundColor: '#242424', borderRadius: '8px' }}>
+      <div className="about-content">
         <h2>About This App</h2>
         <p>
           This is a React application built with Vite and TypeScript.

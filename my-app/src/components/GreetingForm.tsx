@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import './GreetingForm.css'
 
 function GreetingForm() {
   const [name, setName] = useState('')
@@ -15,24 +16,16 @@ function GreetingForm() {
   }, [])
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px', margin: '20px 0' }}>
+    <div className="greeting-form">
       <h2>Greeting Form</h2>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter your name"
-        style={{
-          padding: '8px',
-          fontSize: '16px',
-          borderRadius: '4px',
-          border: '1px solid #ddd',
-          marginRight: '10px',
-          width: '200px'
-        }}
       />
       {greeting && (
-        <p style={{ marginTop: '10px', fontSize: '18px', color: '#ffffffff' }}>
+        <p className="greeting-message">
           {greeting}
         </p>
       )}

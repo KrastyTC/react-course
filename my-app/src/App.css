@@ -40,3 +40,39 @@
 .read-the-docs {
   color: #888;
 }
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-nav {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  background-color: #242424;
+  z-index: 100;
+}
+
+.app-nav-link {
+  text-decoration: none;
+  color: #646cff;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.app-nav-link:hover {
+  background-color: rgba(240, 240, 240, 0.1);
+}
+
+.app-main {
+  flex: 1;
+  padding: 2rem 0;
+}
