@@ -57,6 +57,8 @@
   top: 0;
   background-color: #242424;
   z-index: 100;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .app-nav-link {
@@ -69,6 +71,20 @@
 }
 
 .app-nav-link:hover {
+  background-color: rgba(240, 240, 240, 0.1);
+}
+
+.app-nav-button {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: inherit;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.app-nav-button:hover {
   background-color: rgba(240, 240, 240, 0.1);
 }
 

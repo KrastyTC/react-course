@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import './Products.css'
+import { useToastStore } from '../stores/toastStore'
 
 interface Product {
   id: number
@@ -25,6 +27,26 @@ function Products() {
     queryKey: ['products'],
     queryFn: fetchProducts,
   })
+
+  const addNotification = useToastStore((s) => s.addNotification)
+  const lastErrorMessageRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (!isError) {
+      lastErrorMessageRef.current = null
+      return
+    }
+
+    const msg = error instanceof Error ? error.message : 'An error occurred'
+    if (lastErrorMessageRef.current === msg) return
+    lastErrorMessageRef.current = msg
+
+    addNotification({
+      type: 'error',
+      message: 'Failed to load products',
+      timeout: 4000,
+    })
+  }, [addNotification, error, isError])
 
   if (isLoading) {
     return (

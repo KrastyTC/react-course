@@ -51,6 +51,32 @@
   line-height: 1.2;
 }
 
+.product-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.favorite-button {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(100, 108, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.favorite-button:hover {
+  background: rgba(100, 108, 255, 0.2);
+}
+
+.favorite-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .product-meta {
   display: flex;
   gap: 1rem;

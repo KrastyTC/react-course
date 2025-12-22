@@ -1,6 +1,8 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import './ProductDetail.css'
+import { useToastStore } from '../stores/toastStore'
 
 interface ProductDetail {
   id: number
@@ -24,6 +26,21 @@ async function fetchProductDetail(id: string): Promise<ProductDetail> {
   return response.json()
 }
 
+async function markFavorite(id: string) {
+  // DummyJSON supports updating resources; this simulates a "favorite" flag write.
+  const response = await fetch(`https://dummyjson.com/products/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ favorite: true }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to favorite product')
+  }
+
+  return response.json()
+}
+
 function ProductDetail() {
   const { id } = useParams<{ id: string }>()
 
@@ -31,6 +48,44 @@ function ProductDetail() {
     queryKey: ['product', id],
     queryFn: () => fetchProductDetail(id!),
     enabled: !!id, // Only run query when id exists
+  })
+
+  const addNotification = useToastStore((s) => s.addNotification)
+  const lastErrorMessageRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (!isError) {
+      lastErrorMessageRef.current = null
+      return
+    }
+
+    const msg = error instanceof Error ? error.message : 'An error occurred'
+    if (lastErrorMessageRef.current === msg) return
+    lastErrorMessageRef.current = msg
+
+    addNotification({
+      type: 'error',
+      message: 'Failed to load product',
+      timeout: 4000,
+    })
+  }, [addNotification, error, isError])
+
+  const favoriteMutation = useMutation({
+    mutationFn: (productId: string) => markFavorite(productId),
+    onSuccess: () => {
+      addNotification({
+        type: 'success',
+        message: 'Product added to favorite',
+        timeout: 3000,
+      })
+    },
+    onError: () => {
+      addNotification({
+        type: 'error',
+        message: 'Failed to favorite product',
+        timeout: 4000,
+      })
+    },
   })
 
   if (isLoading) {
@@ -76,6 +131,16 @@ function ProductDetail() {
         
         <div className="product-detail-info">
           <h1>{data.title}</h1>
+          <div className="product-actions">
+            <button
+              type="button"
+              className="favorite-button"
+              onClick={() => favoriteMutation.mutate(String(data.id))}
+              disabled={favoriteMutation.isPending}
+            >
+              {favoriteMutation.isPending ? 'Saving…' : 'Favorite'}
+            </button>
+          </div>
           <div className="product-meta">
             <span className="product-brand">{data.brand}</span>
             <span className="product-category">{data.category}</span>
