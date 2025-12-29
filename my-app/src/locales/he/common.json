@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "בית",
+    "about": "אודות",
+    "products": "מוצרים",
+    "filters": "מסננים"
+  },
+  "loading": "טוען...",
+  "error": "שגיאה",
+  "back": "חזור",
+  "save": "שמור",
+  "saving": "שומר…",
+  "viewDetails": "צפה בפרטים",
+  "actions": "פעולות"
+}
+

@@ -1,0 +1,32 @@
+.language-switcher {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.lang-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.lang-button:hover {
+  background: var(--bg-secondary);
+}
+
+.lang-button.active {
+  background: var(--link-color);
+  color: white;
+  border-color: var(--link-color);
+}
+
+[dir="rtl"] .language-switcher {
+  margin-left: 0;
+  margin-right: auto;
+}
+

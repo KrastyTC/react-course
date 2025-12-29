@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "products": "Products",
+    "filters": "Filters"
+  },
+  "loading": "Loading...",
+  "error": "Error",
+  "back": "Back",
+  "save": "Save",
+  "saving": "Saving…",
+  "viewDetails": "View details",
+  "actions": "Actions"
+}
+
