@@ -1,0 +1,25 @@
+{
+  "title": "Products",
+  "loading": "Loading products...",
+  "loadingDetails": "Loading product details...",
+  "emptyState": "No products found",
+  "error": "An error occurred",
+  "errorLoad": "Failed to load products",
+  "errorLoadDetails": "Failed to load product",
+  "errorFavorite": "Failed to favorite product",
+  "showing": "Showing {{count}} product",
+  "showing_plural": "Showing {{count}} products",
+  "backToProducts": "<link>← Back to Products</link>",
+  "favorite": "Favorite",
+  "description": "Description",
+  "images": "Images",
+  "inStock": "In Stock: {{count}}",
+  "off": "{{discount}}% off",
+  "category": "Category",
+  "price": "Price",
+  "image": "Image",
+  "search": "Search",
+  "searchPlaceholder": "Search products...",
+  "favoriteSuccess": "Product added to favorite"
+}
+

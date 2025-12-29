@@ -38,7 +38,7 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: var(--text-secondary);
 }
 
 .app-container {
@@ -49,46 +49,62 @@
 
 .app-nav {
   padding: 1rem;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   gap: 1rem;
   justify-content: center;
   position: sticky;
   top: 0;
-  background-color: #242424;
+  background-color: var(--bg-nav);
   z-index: 100;
   align-items: center;
   flex-wrap: wrap;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .app-nav-link {
   text-decoration: none;
-  color: #646cff;
+  color: var(--link-color);
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .app-nav-link:hover {
-  background-color: rgba(240, 240, 240, 0.1);
+  background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .app-nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .app-nav-button {
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid var(--border-color);
   background: transparent;
-  color: inherit;
+  color: var(--text-primary);
   font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .app-nav-button:hover {
-  background-color: rgba(240, 240, 240, 0.1);
+  background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .app-nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[dir="rtl"] .app-nav {
+  flex-direction: row-reverse;
 }
 
 .app-main {
   flex: 1;
   padding: 2rem 0;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 }

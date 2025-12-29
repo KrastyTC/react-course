@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import './App.css'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -7,26 +8,31 @@ import ProductDetail from './pages/ProductDetail'
 import { FilterSidebar } from './components/FilterSidebar'
 import { useFilterSidebar } from './ui/FilterSidebarContext'
 import { ToastHost } from './components/ToastHost'
+import LanguageSwitcher from './components/LanguageSwitcher'
+import ThemeSwitcher from './components/ThemeSwitcher'
 
 function App() {
   const { toggle } = useFilterSidebar()
+  const { t } = useTranslation('common')
 
   return (
     <BrowserRouter>
       <div className="app-container">
         <nav className="app-nav">
           <Link to="/" className="app-nav-link">
-            Home
+            {t('nav.home')}
           </Link>
           <Link to="/about" className="app-nav-link">
-            About
+            {t('nav.about')}
           </Link>
           <Link to="/products" className="app-nav-link">
-            Products
+            {t('nav.products')}
           </Link>
           <button type="button" className="app-nav-button" onClick={toggle}>
-            Filters
+            {t('nav.filters')}
           </button>
+          <ThemeSwitcher />
+          <LanguageSwitcher />
         </nav>
         <FilterSidebar />
         <ToastHost />

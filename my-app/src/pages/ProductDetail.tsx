@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { useTranslation, Trans } from 'react-i18next'
 import './ProductDetail.css'
 import { useToastStore } from '../stores/toastStore'
 
@@ -43,6 +44,8 @@ async function markFavorite(id: string) {
 
 function ProductDetail() {
   const { id } = useParams<{ id: string }>()
+  const { t } = useTranslation('products')
+  const { t: tCommon } = useTranslation('common')
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['product', id],
@@ -59,30 +62,30 @@ function ProductDetail() {
       return
     }
 
-    const msg = error instanceof Error ? error.message : 'An error occurred'
+    const msg = error instanceof Error ? error.message : t('error')
     if (lastErrorMessageRef.current === msg) return
     lastErrorMessageRef.current = msg
 
     addNotification({
       type: 'error',
-      message: 'Failed to load product',
+      message: t('errorLoadDetails'),
       timeout: 4000,
     })
-  }, [addNotification, error, isError])
+  }, [addNotification, error, isError, t])
 
   const favoriteMutation = useMutation({
     mutationFn: (productId: string) => markFavorite(productId),
     onSuccess: () => {
       addNotification({
         type: 'success',
-        message: 'Product added to favorite',
+        message: t('favoriteSuccess'),
         timeout: 3000,
       })
     },
     onError: () => {
       addNotification({
         type: 'error',
-        message: 'Failed to favorite product',
+        message: t('errorFavorite'),
         timeout: 4000,
       })
     },
@@ -93,7 +96,7 @@ function ProductDetail() {
       <div className="product-detail-container">
         <div className="loading-container">
           <div className="loading-spinner"></div>
-          <div className="loading-text">Loading product details...</div>
+          <div className="loading-text">{t('loadingDetails')}</div>
         </div>
       </div>
     )
@@ -104,10 +107,10 @@ function ProductDetail() {
       <div className="product-detail-container">
         <div className="error-container">
           <div className="error-message">
-            Error: {error instanceof Error ? error.message : 'An error occurred'}
+            {t('error')}: {error instanceof Error ? error.message : t('error')}
           </div>
           <Link to="/products" className="back-link">
-            ← Back to Products
+            {t('backToProducts')}
           </Link>
         </div>
       </div>
@@ -120,9 +123,15 @@ function ProductDetail() {
 
   return (
     <div className="product-detail-container">
-      <Link to="/products" className="back-link">
-        ← Back to Products
-      </Link>
+      <div className="back-link-wrapper">
+        <Trans
+          i18nKey="backToProducts"
+          ns="products"
+          components={{
+            link: <Link to="/products" className="back-link" />,
+          }}
+        />
+      </div>
       
       <div className="product-detail-content">
         <div className="product-detail-image">
@@ -138,7 +147,7 @@ function ProductDetail() {
               onClick={() => favoriteMutation.mutate(String(data.id))}
               disabled={favoriteMutation.isPending}
             >
-              {favoriteMutation.isPending ? 'Saving…' : 'Favorite'}
+              {favoriteMutation.isPending ? tCommon('saving') : t('favorite')}
             </button>
           </div>
           <div className="product-meta">
@@ -148,26 +157,40 @@ function ProductDetail() {
           
           <div className="product-rating">
             <span className="rating-value">⭐ {data.rating}</span>
-            <span className="stock-info">In Stock: {data.stock}</span>
+            <span className="stock-info">
+              <Trans
+                i18nKey="inStock"
+                ns="products"
+                values={{ count: data.stock }}
+              >
+                In Stock: {{ count: data.stock }}
+              </Trans>
+            </span>
           </div>
           
           <div className="product-price">
             <span className="current-price">${data.price}</span>
             {data.discountPercentage > 0 && (
               <span className="discount">
-                {data.discountPercentage}% off
+                <Trans
+                  i18nKey="off"
+                  ns="products"
+                  values={{ discount: data.discountPercentage }}
+                >
+                  {{ discount: data.discountPercentage }}% off
+                </Trans>
               </span>
             )}
           </div>
           
           <div className="product-description">
-            <h2>Description</h2>
+            <h2>{t('description')}</h2>
             <p>{data.description}</p>
           </div>
           
           {data.images && data.images.length > 0 && (
             <div className="product-images">
-              <h2>Images</h2>
+              <h2>{t('images')}</h2>
               <div className="images-grid">
                 {data.images.map((image, index) => (
                   <img key={index} src={image} alt={`${data.title} ${index + 1}`} />

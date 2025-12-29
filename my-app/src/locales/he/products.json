@@ -1,0 +1,25 @@
+{
+  "title": "מוצרים",
+  "loading": "טוען מוצרים...",
+  "loadingDetails": "טוען פרטי מוצר...",
+  "emptyState": "לא נמצאו מוצרים",
+  "error": "אירעה שגיאה",
+  "errorLoad": "נכשל בטעינת מוצרים",
+  "errorLoadDetails": "נכשל בטעינת מוצר",
+  "errorFavorite": "נכשל בהוספת מוצר למועדפים",
+  "showing": "מוצג מוצר אחד",
+  "showing_plural": "מוצגים {{count}} מוצרים",
+  "backToProducts": "<link>← חזרה למוצרים</link>",
+  "favorite": "מועדף",
+  "description": "תיאור",
+  "images": "תמונות",
+  "inStock": "במלאי: {{count}}",
+  "off": "{{discount}}% הנחה",
+  "category": "קטגוריה",
+  "price": "מחיר",
+  "image": "תמונה",
+  "search": "חיפוש",
+  "searchPlaceholder": "חפש מוצרים...",
+  "favoriteSuccess": "המוצר נוסף למועדפים"
+}
+
